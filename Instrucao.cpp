@@ -2,7 +2,6 @@
 #include <iostream>
 using namespace std;
 
-
 Instrucao::~Instrucao(){};
 
 Instrucao::Instrucao(int opcode, int origem1, int origem2, int destino, int imediato,

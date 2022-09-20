@@ -3,19 +3,14 @@
 #include <iostream>
 using namespace std;
 
-template <class T>
-void inicializar(T** dados){
-    dados = (T**)malloc(tamanho * sizeof(T*));
+MemoriaDeDados::MemoriaDeDados(int tamanho){
+    dados = (Dado**)malloc(tamanho * sizeof(Dado*));
     for (int i = 0; i < tamanho; i++)
     {
         dados[i] = NULL;
     }
     
     this->tamanho = tamanho;
-}
-
-MemoriaDeDados::MemoriaDeDados(int tamanho){
-    inicializar<Dado>(dados);
 }
 
 MemoriaDeDados::~MemoriaDeDados(){

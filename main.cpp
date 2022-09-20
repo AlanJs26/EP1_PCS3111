@@ -73,6 +73,9 @@ void alterarRegistrador(BancoDeRegistradores* registradores){
 }
 
 
+
+int main()
+{
 // 1 opcode
 // 2 origem1
 // 3 origem2
@@ -90,20 +93,7 @@ int codigo[][6] = {
     {TIPO_R,10,8,9,0,FUNCAO_ADD}, // ADD 9, 10, 8
     {SW,0,0,9,3,0}, // SW 9, 3
     {J,0,0,0,10,0} // J 10
-    // {0,0,0,8,0,0}, // LW 8, 0
-    // {0,0,0,9,1,0}, // LW 9, 1
-    // {0,0,0,10,2,0}, // LW 10, 2
-    // {0,9,10,0,7,0}, // BNE 9, 10, 7
-    // {0,8,10,0,0,0}, // MULT 8, 10
-    // {0,0,0,24,3,0}, // SW 24, 3
-    // {0,0,0,0,0,0}, // J 0
-    // {0,10,8,9,0,0}, // ADD 9, 10, 8
-    // {0,0,0,9,3,0}, // SW 9, 3
-    // {0,0,0,0,10,0} // J 10
 };
-
-int main()
-{
     BancoDeRegistradores* registradores = new BancoDeRegistradores;
     MemoriaDeDados* dados = new MemoriaDeDados(16);
     MemoriaDeInstrucoes* instrucoes = new MemoriaDeInstrucoes(16);

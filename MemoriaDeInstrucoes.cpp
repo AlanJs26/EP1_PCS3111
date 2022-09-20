@@ -2,9 +2,6 @@
 #include "Instrucao.h"
 #include <iostream>
 using namespace std;
-#include <vector>
-
-vector<int> g = {1,2,3};
 
 MemoriaDeInstrucoes::MemoriaDeInstrucoes(int tamanho){
     instrucoes = (Instrucao**)malloc(tamanho * sizeof(Instrucao*));
