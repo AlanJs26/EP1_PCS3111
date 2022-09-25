@@ -4,3 +4,5 @@
 /maina.exe
 /saida.txt
 *.zip
+*.exe
+*.o

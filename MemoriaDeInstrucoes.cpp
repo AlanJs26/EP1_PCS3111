@@ -4,9 +4,8 @@
 using namespace std;
 
 MemoriaDeInstrucoes::MemoriaDeInstrucoes(int tamanho){
-    instrucoes = (Instrucao**)malloc(tamanho * sizeof(Instrucao*));
-    for (int i = 0; i < tamanho; i++)
-    {
+    instrucoes = new Instrucao*[tamanho];
+    for (int i = 0; i < tamanho; i++) {
         instrucoes[i] = NULL;
     }
     
@@ -19,7 +18,7 @@ MemoriaDeInstrucoes::~MemoriaDeInstrucoes(){
             delete instrucoes[i];
         }
     }
-    free(instrucoes);
+    delete[] instrucoes;
 }
 
 int MemoriaDeInstrucoes::getTamanho(){

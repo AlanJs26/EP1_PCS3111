@@ -4,9 +4,8 @@
 using namespace std;
 
 MemoriaDeDados::MemoriaDeDados(int tamanho){
-    dados = (Dado**)malloc(tamanho * sizeof(Dado*));
-    for (int i = 0; i < tamanho; i++)
-    {
+    dados = new Dado*[tamanho];
+    for (int i = 0; i < tamanho; i++) {
         dados[i] = NULL;
     }
     
@@ -19,7 +18,7 @@ MemoriaDeDados::~MemoriaDeDados(){
             delete dados[i];
         }
     }
-    free(dados);
+    delete[] dados;
 }
 
 int MemoriaDeDados::getTamanho(){
@@ -45,15 +44,13 @@ bool MemoriaDeDados::escrever(int posicao, Dado* d){
     dados[posicao] = d;
 
     return true;
-
 }
 
 void MemoriaDeDados::imprimir(){
-    for (int i = 0; i < tamanho; i++)
-    {
-        if(dados[i] == NULL){
+    for (int i = 0; i < tamanho; i++) {
+        if(dados[i] == NULL) {
             cout << i << ": " << "-" << endl;
-        }else{
+        }else {
             cout << i << ": " << dados[i]->getValor() << endl;
         }
     }
