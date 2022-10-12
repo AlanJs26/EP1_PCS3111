@@ -7,7 +7,7 @@ Dado::Dado(int valor){
 
 Dado::~Dado(){
     this->valor = 0;
-};
+}
 
 int Dado::getValor(){
     return this->valor;
