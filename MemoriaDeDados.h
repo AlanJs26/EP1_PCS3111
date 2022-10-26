@@ -2,17 +2,12 @@
 #define MEMORIADEDADOS_h
 
 #include "Dado.h"
+#include "Memoria.h"
 
-class MemoriaDeDados {
-private:
-    int tamanho;
-    Dado** dados;
+class MemoriaDeDados : public Memoria<Dado> {
 public:
-    MemoriaDeDados(int tamanho);
-    virtual ~MemoriaDeDados();
-    int getTamanho();
-    Dado* ler(int posicao);
-    bool escrever(int posicao, Dado* d);
+    MemoriaDeDados(int tamanho) : Memoria<Dado>(tamanho){};
+
     void imprimir();
 };
 

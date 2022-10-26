@@ -1,5 +1,6 @@
 #include "BancoDeRegistradores.h"
 #include <iostream>
+#include <stdexcept>
 using namespace std;
 
 void BancoDeRegistradores::resetaRegistradores(){
@@ -18,7 +19,8 @@ BancoDeRegistradores::BancoDeRegistradores(){
 
 int BancoDeRegistradores::getValor(int registrador){
     if(registrador >= QUANTIDADE_REGISTRADORES || registrador <= 0){
-        return 0;
+        // mudar a mensagem de erro
+        throw new logic_error("Mensagem de erro");
     }
 
     return registradores[registrador];
@@ -26,7 +28,8 @@ int BancoDeRegistradores::getValor(int registrador){
 
 void BancoDeRegistradores::setValor(int registrador, int valor){
     if(registrador >= QUANTIDADE_REGISTRADORES || registrador <= 0){
-        return;
+        // mudar a mensagem de erro
+        throw new logic_error("Mensagem de erro");
     }
 
     registradores[registrador] = valor;

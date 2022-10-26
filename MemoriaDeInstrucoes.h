@@ -2,19 +2,11 @@
 #define MEMORIADEINSTRUCOES_h
 
 #include "Instrucao.h"
+#include "Memoria.h"
 
-class MemoriaDeInstrucoes {
-private:
-    int tamanho;
-    Instrucao** instrucoes;
+class MemoriaDeInstrucoes : public Memoria<Instrucao> {
 public:
-
-    MemoriaDeInstrucoes(int tamanho);
-    virtual ~MemoriaDeInstrucoes();
-    int getTamanho();
-    Instrucao* ler(int posicao);
-    bool escrever(int posicao, Instrucao* d);
-
+    MemoriaDeInstrucoes(int tamanho) : Memoria<Instrucao>(tamanho){};
 };
 
 #endif

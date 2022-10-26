@@ -7,14 +7,14 @@ class BancoDeRegistradores {
 private:
     int registradores[QUANTIDADE_REGISTRADORES];
 
-    void resetaRegistradores();
+    void resetaRegistradores(); 
 
 public:
     BancoDeRegistradores();
     virtual ~BancoDeRegistradores();
-    int getValor(int registrador);
-    void setValor(int registrador, int valor);
-    void imprimir();
+    virtual int getValor(int registrador);
+    virtual void setValor(int registrador, int valor);
+    virtual void imprimir();
 
 };
 

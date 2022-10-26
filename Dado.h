@@ -8,8 +8,9 @@ private:
 public:
     Dado(int valor);
     virtual ~Dado();
-    int getValor();
-    void imprimir();
+    virtual int getValor();
+    virtual void imprimir();
+
 };
 
 
