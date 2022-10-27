@@ -5,7 +5,9 @@ Dado::Dado(int valor){
     this->valor = valor;
 }
 
-Dado::~Dado(){};
+Dado::~Dado(){
+    this->valor = 0;
+}
 
 int Dado::getValor(){
     return this->valor;

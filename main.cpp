@@ -73,52 +73,40 @@ void alterarRegistrador(BancoDeRegistradores* registradores){
 }
 
 
-// 1 opcode
-// 2 origem1
-// 3 origem2
-// 4 destino
-// 5 imediato
-// 6 funcao
-int codigo[][6] = {
-    {LW,0,0,8,0,0}, // LW 8, 0
-    {LW,0,0,9,1,0}, // LW 9, 1
-    {LW,0,0,10,2,0}, // LW 10, 2
-    {BNE,9,10,0,7,0}, // BNE 9, 10, 7
-    {TIPO_R,8,10,0,0,FUNCAO_MULT}, // MULT 8, 10
-    {SW,0,0,24,3,0}, // SW 24, 3
-    {J,0,0,0,0,0}, // J 0
-    {TIPO_R,10,8,9,0,FUNCAO_ADD}, // ADD 9, 10, 8
-    {SW,0,0,9,3,0}, // SW 9, 3
-    {J,0,0,0,10,0} // J 10
-    // {0,0,0,8,0,0}, // LW 8, 0
-    // {0,0,0,9,1,0}, // LW 9, 1
-    // {0,0,0,10,2,0}, // LW 10, 2
-    // {0,9,10,0,7,0}, // BNE 9, 10, 7
-    // {0,8,10,0,0,0}, // MULT 8, 10
-    // {0,0,0,24,3,0}, // SW 24, 3
-    // {0,0,0,0,0,0}, // J 0
-    // {0,10,8,9,0,0}, // ADD 9, 10, 8
-    // {0,0,0,9,3,0}, // SW 9, 3
-    // {0,0,0,0,10,0} // J 10
-};
 
 int main()
 {
+    // 1 opcode
+    // 2 origem1
+    // 3 origem2
+    // 4 destino
+    // 5 imediato
+    // 6 funcao
+    int codigo[][6] = {
+        {LW,0,0,8,0,0},                   // LW 8, 0
+        {LW,0,0,9,1,0},                   // LW 9, 1
+        {LW,0,0,10,2,0},                  // LW 10, 2
+        {BNE,9,10,0,7,0},                 // BNE 9, 10, 7
+        {TIPO_R,8,10,0,0,FUNCAO_MULT},    // MULT 8, 10
+        {SW,0,0,24,3,0},                  // SW 24, 3
+        {J,0,0,0,0,0},                    // J 0
+        {TIPO_R,10,8,9,0,FUNCAO_ADD},     // ADD 9, 10, 8
+        {SW,0,0,9,3,0},                   // SW 9, 3
+        {J,0,0,0,10,0}                    // J 10
+    };
     BancoDeRegistradores* registradores = new BancoDeRegistradores;
     MemoriaDeDados* dados = new MemoriaDeDados(16);
     MemoriaDeInstrucoes* instrucoes = new MemoriaDeInstrucoes(16);
 
-    Instrucao* itt;
-    for(int i = 0; i < 10; i++){
-        itt = new Instrucao(
+    for(int i = 0; i < 10; i++) {
+        instrucoes->escrever(i, new Instrucao(
                     codigo[i][0],
                     codigo[i][1],
                     codigo[i][2],
                     codigo[i][3],
                     codigo[i][4],
                     codigo[i][5]
-                );
-        instrucoes->escrever(i, itt);
+                ));
     }
 
     UnidadeDeControle* unidadeControle = new UnidadeDeControle(registradores, instrucoes, dados);

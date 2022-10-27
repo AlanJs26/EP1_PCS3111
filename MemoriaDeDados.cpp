@@ -3,19 +3,13 @@
 #include <iostream>
 using namespace std;
 
-template <class T>
-void inicializar(T** dados){
-    dados = (T**)malloc(tamanho * sizeof(T*));
-    for (int i = 0; i < tamanho; i++)
-    {
+MemoriaDeDados::MemoriaDeDados(int tamanho){
+    dados = new Dado*[tamanho];
+    for (int i = 0; i < tamanho; i++) {
         dados[i] = NULL;
     }
     
     this->tamanho = tamanho;
-}
-
-MemoriaDeDados::MemoriaDeDados(int tamanho){
-    inicializar<Dado>(dados);
 }
 
 MemoriaDeDados::~MemoriaDeDados(){
@@ -24,7 +18,7 @@ MemoriaDeDados::~MemoriaDeDados(){
             delete dados[i];
         }
     }
-    free(dados);
+    delete[] dados;
 }
 
 int MemoriaDeDados::getTamanho(){
@@ -50,15 +44,13 @@ bool MemoriaDeDados::escrever(int posicao, Dado* d){
     dados[posicao] = d;
 
     return true;
-
 }
 
 void MemoriaDeDados::imprimir(){
-    for (int i = 0; i < tamanho; i++)
-    {
-        if(dados[i] == NULL){
+    for (int i = 0; i < tamanho; i++) {
+        if(dados[i] == NULL) {
             cout << i << ": " << "-" << endl;
-        }else{
+        }else {
             cout << i << ": " << dados[i]->getValor() << endl;
         }
     }

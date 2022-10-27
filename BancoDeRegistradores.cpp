@@ -7,7 +7,7 @@ void BancoDeRegistradores::resetaRegistradores(){
     {
         registradores[i] = 0;
     }
-};
+}
 BancoDeRegistradores::~BancoDeRegistradores(){
     resetaRegistradores();
 }
