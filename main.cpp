@@ -1,7 +1,16 @@
 #include "UnidadeDeControle.h"
+#include "MemoriaRAM.h"
+#include "ESMapeadaNaMemoria.h"
+#include "Teclado.h"
+#include "TecladoDeChar.h"
+#include "Monitor.h"
+#include "MonitorDeChar.h"
+#include "GerenciadorDeMemoria.h"
 
 #include <iostream>
 using namespace std;
+
+
 int telaRegistradores(){
     int escolha = 0;
     cout << "Registradores" << endl;
@@ -17,49 +26,6 @@ int telaRegistradores(){
     return escolha;
 }
 
-int telaMemoriaDeDados(){
-    int escolha = 0;
-    cout << "Memoria de Dados" << endl;
-    cout << "1) Alterar valor" << endl;
-    cout << "2) Imprimir" << endl;
-    cout << "0) Voltar" << endl;
-    cout << "Escolha uma opcao: ";
-
-    cin >> escolha;
-    
-    cout << endl;
-
-    return escolha;
-}
-
-int telaEmuladorMips(){
-    int escolha = 0;
-    cout << "Emulador de MIPS" << endl;
-    cout << "1) Memoria de Dados" << endl;
-    cout << "2) Registradores" << endl;
-    cout << "3) Executar proxima instrucao" << endl;
-    cout << "0) Sair" << endl;
-    cout << "Escolha uma opcao: ";
-
-    cin >> escolha;
-
-    cout << endl;
-
-    return escolha;
-}
-
-void alterarMemoria(MemoriaDeDados* dados){
-    int posicao, novoValor;
-    cout << "Posicao a ser alterada: ";
-    cin >> posicao;
-    cout << "Novo valor: ";
-    cin >> novoValor;
-    cout << endl;
-
-    Dado* novoDado = new Dado(novoValor);
-    dados->escrever(posicao, novoDado);
-}
-
 void alterarRegistrador(BancoDeRegistradores* registradores){
     int antigoRegistrador, novoValor;
 
@@ -72,99 +38,197 @@ void alterarRegistrador(BancoDeRegistradores* registradores){
     registradores->setValor(antigoRegistrador, novoValor);
 }
 
+void Load(MemoriaRAM* memoriaRam) {
+    GerenciadorDeMemoria* gerenciador = new GerenciadorDeMemoria();
 
-// 1 opcode
-// 2 origem1
-// 3 origem2
-// 4 destino
-// 5 imediato
-// 6 funcao
-int codigo[][6] = {
-    {LW,0,0,8,0,0}, // LW 8, 0
-    {LW,0,0,9,1,0}, // LW 9, 1
-    {LW,0,0,10,2,0}, // LW 10, 2
-    {BNE,9,10,0,7,0}, // BNE 9, 10, 7
-    {TIPO_R,8,10,0,0,FUNCAO_MULT}, // MULT 8, 10
-    {SW,0,0,24,3,0}, // SW 24, 3
-    {J,0,0,0,0,0}, // J 0
-    {TIPO_R,10,8,9,0,FUNCAO_ADD}, // ADD 9, 10, 8
-    {SW,0,0,9,3,0}, // SW 9, 3
-    {J,0,0,0,10,0} // J 10
-    // {0,0,0,8,0,0}, // LW 8, 0
-    // {0,0,0,9,1,0}, // LW 9, 1
-    // {0,0,0,10,2,0}, // LW 10, 2
-    // {0,9,10,0,7,0}, // BNE 9, 10, 7
-    // {0,8,10,0,0,0}, // MULT 8, 10
-    // {0,0,0,24,3,0}, // SW 24, 3
-    // {0,0,0,0,0,0}, // J 0
-    // {0,10,8,9,0,0}, // ADD 9, 10, 8
-    // {0,0,0,9,3,0}, // SW 9, 3
-    // {0,0,0,0,10,0} // J 10
-};
+    cout << "Arquivo origem: ";
+
+    string arquivo;
+
+    cin >> arquivo;
+
+    cout << endl;
+
+    try{
+        gerenciador->load(arquivo, memoriaRam);
+    }catch(exception* e){
+        cout << "Erro: " << e->what() << endl;
+        delete e;
+    }
+}
+
+void Dump(MemoriaRAM* memoriaRam) {
+    GerenciadorDeMemoria* gerenciador = new GerenciadorDeMemoria();
+
+    cout << "Arquivo destino: ";
+
+    string arquivo;
+
+    cin >> arquivo;
+
+    cout << endl;
+
+    try{
+        gerenciador->dump(arquivo, memoriaRam);
+    }catch(exception* e){
+        cout << "Erro: " << e->what() << endl;
+        delete e;
+    }
+}
+
+
+int telaMemoria(){
+    int escolha = 0;
+    cout << "Memoria" << endl;
+    cout << "1) Alterar valor" << endl;
+    cout << "2) Imprimir" << endl;
+    cout << "0) Voltar" << endl;
+    cout << "Escolha uma opcao: ";
+
+    cin >> escolha;
+    
+    cout << endl;
+
+    return escolha;
+}
+
+void alterarMemoria(ESMapeadaNaMemoria* dados){
+    int posicao, novoValor;
+    cout << "Posicao a ser alterada: ";
+    cin >> posicao;
+    cout << "Novo valor: ";
+    cin >> novoValor;
+    cout << endl;
+
+    Dado* novoDado = new Dado(novoValor);
+    dados->escrever(posicao, novoDado);
+}
+
+int telaEmuladorMips(){
+    int escolha = 0;
+    cout << "Emulador de MIPS" << endl;
+    cout << "1) Memoria de Dados" << endl;
+    cout << "2) Registradores" << endl;
+    cout << "3) Executar proxima instrucao" << endl;
+    cout << "4) Executar ate PC = 0" << endl;
+    cout << "5) Load" << endl;
+    cout << "6) Dump" << endl;
+    cout << "0) Sair" << endl;
+    cout << "Escolha uma opcao: ";
+
+    cin >> escolha;
+
+    cout << endl;
+
+    return escolha;
+}
+
+
 
 int main()
 {
-    BancoDeRegistradores* registradores = new BancoDeRegistradores;
-    MemoriaDeDados* dados = new MemoriaDeDados(16);
-    MemoriaDeInstrucoes* instrucoes = new MemoriaDeInstrucoes(16);
+    BancoDeRegistradores *registradores = new BancoDeRegistradores;
+    MemoriaRAM *memoriaRam = new MemoriaRAM(64);
 
-    Instrucao* itt;
-    for(int i = 0; i < 10; i++){
-        itt = new Instrucao(
-                    codigo[i][0],
-                    codigo[i][1],
-                    codigo[i][2],
-                    codigo[i][3],
-                    codigo[i][4],
-                    codigo[i][5]
-                );
-        instrucoes->escrever(i, itt);
-    }
+    vector<Dispositivo*> dispositivos;
+    ESMapeadaNaMemoria *esMapeadaNaMemoria = new ESMapeadaNaMemoria(memoriaRam, &dispositivos);
 
-    UnidadeDeControle* unidadeControle = new UnidadeDeControle(registradores, instrucoes, dados);
+    esMapeadaNaMemoria->adicionar(new Teclado());
+    esMapeadaNaMemoria->adicionar(new TecladoDeChar());
+    esMapeadaNaMemoria->adicionar(new Monitor());
+    esMapeadaNaMemoria->adicionar(new MonitorDeChar());
+
+    UnidadeDeControle *unidadeControle = new UnidadeDeControle(registradores, esMapeadaNaMemoria);
+
 
     int telaAtual = 0;
     int escolha;
-    while(true){
-        if(telaAtual == 0){
+    while (true)
+    {
+        if (telaAtual == 0)
+        {
             escolha = telaEmuladorMips();
 
-            if(escolha == 0){
+            if (escolha == 0)
+            {
                 break;
             }
-            if(escolha == 3){
+            if (escolha == 3)
+            {
                 cout << "PC: " << unidadeControle->getPC() << endl;
                 unidadeControle->executarInstrucao();
                 cout << "Instrucao executada" << endl;
-                cout << "PC: " << unidadeControle->getPC() << endl << endl;
+                cout << "PC: " << unidadeControle->getPC() << endl
+                     << endl;
                 continue;
             }
-            telaAtual = escolha;
-        }else if(telaAtual == 1){
-            escolha = telaMemoriaDeDados();
+            else if (escolha == 4)
+            {
+                try
+                {
+                    
+                    do{
+                        unidadeControle->executarInstrucao();
+                    }while (unidadeControle->getPC() != 0);
+                    cout << endl;
+                }
+                catch (exception *e)
+                {
+                    cout << "Erro: " << e->what() << endl;
+                    delete e;
+                }
+                continue;
+            }
+            else if (escolha == 5)
+            {
+                Load(memoriaRam);
+                continue;
+            }
+            else if (escolha == 6)
+            {
+                Dump(memoriaRam);
+                continue;
+            }
 
-            if(escolha == 1){
-                alterarMemoria(dados);
-            }else if(escolha == 2){
-                unidadeControle->getMemoriaDeDados()->imprimir();
+            telaAtual = escolha;
+        }
+        else if (telaAtual == 1)
+        {
+            escolha = telaMemoria();
+
+            if (escolha == 1)
+            {
+                alterarMemoria(esMapeadaNaMemoria);
+            }
+            else if (escolha == 2)
+            {
+                esMapeadaNaMemoria->imprimir();
                 cout << endl;
-            }else{
+            }
+            else
+            {
                 telaAtual = 0;
             }
-        }else if(telaAtual == 2){
+        }
+        else if (telaAtual == 2)
+        {
             escolha = telaRegistradores();
 
-            if(escolha == 1){
+            if (escolha == 1)
+            {
                 alterarRegistrador(registradores);
-            }else if(escolha == 2){
+            }
+            else if (escolha == 2)
+            {
                 unidadeControle->getBancoDeRegistradores()->imprimir();
                 cout << endl;
-            }else{
+            }
+            else
+            {
                 telaAtual = 0;
             }
         }
     }
-
 
     return 0;
 }

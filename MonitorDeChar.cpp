@@ -1,5 +1,5 @@
 #include "MonitorDeChar.h"
 
 void MonitorDeChar::escrever(Dado* d){
-    cout << (char)(d->getValor()) << endl;
+    cout << (char)(d->getValor());
 }

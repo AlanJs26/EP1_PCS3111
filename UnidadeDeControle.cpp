@@ -2,27 +2,22 @@
 #include <iostream>
 using namespace std;
 
-UnidadeDeControle::UnidadeDeControle(BancoDeRegistradores* registradores,
-    MemoriaDeInstrucoes* instrucoes, MemoriaDeDados* dados){
+UnidadeDeControle::UnidadeDeControle(BancoDeRegistradores* registradores, Memoria* memoria){
     this->registradores = registradores;
-    this->instrucoes = instrucoes;
-    this->dados = dados;
+    this->memoria = memoria;
+    this->pc = 0;
 }
 
 UnidadeDeControle::~UnidadeDeControle(){
     delete this->registradores;
-    delete this->instrucoes;
-    delete this->dados;
+    delete this->memoria;
 }
 
 BancoDeRegistradores* UnidadeDeControle::getBancoDeRegistradores(){
     return this->registradores;
 }
-MemoriaDeDados* UnidadeDeControle::getMemoriaDeDados(){
-    return this->dados;
-}
-MemoriaDeInstrucoes* UnidadeDeControle::getMemoriaDeInstrucoes(){
-    return this->instrucoes;
+Memoria* UnidadeDeControle::getMemoria(){
+    return this->memoria;
 }
 
 int UnidadeDeControle::getPC(){
@@ -34,34 +29,35 @@ void UnidadeDeControle::setPC(int pc){
 }
 
 void UnidadeDeControle::executarInstrucao(){
-    Instrucao* instrucaoAtual = instrucoes->ler(pc);
-    if(instrucaoAtual == NULL){
+    Instrucao* instrucaoAtual = dynamic_cast<Instrucao*>(memoria->ler(pc));
+
+    if (instrucaoAtual == NULL) {
         pc++;
         return;
     }
 
-    if(instrucaoAtual->getOpcode() == TIPO_R){
+    if(instrucaoAtual->getOpcode() == Instrucao::TIPO_R){
         switch (instrucaoAtual->getFuncao())
         {
-        case FUNCAO_ADD:
+        case Instrucao::FUNCAO_ADD:
             registradores->setValor(
                 instrucaoAtual->getDestino(),
                 registradores->getValor(instrucaoAtual->getOrigem1()) + registradores->getValor(instrucaoAtual->getOrigem2())
             );
             break;
-        case FUNCAO_SUB:
+        case Instrucao::FUNCAO_SUB:
             registradores->setValor(
                 instrucaoAtual->getDestino(),
                 registradores->getValor(instrucaoAtual->getOrigem1()) - registradores->getValor(instrucaoAtual->getOrigem2())
             );
             break;
-        case FUNCAO_MULT:
+        case Instrucao::FUNCAO_MULT:
             registradores->setValor(
                 24,
                 registradores->getValor(instrucaoAtual->getOrigem1()) * registradores->getValor(instrucaoAtual->getOrigem2())
             );
             break;
-        case FUNCAO_DIV:
+        case Instrucao::FUNCAO_DIV:
             registradores->setValor(
                 24,
                 registradores->getValor(instrucaoAtual->getOrigem1()) / registradores->getValor(instrucaoAtual->getOrigem2())
@@ -79,32 +75,34 @@ void UnidadeDeControle::executarInstrucao(){
 
         switch (instrucaoAtual->getOpcode())
         {
-        case J:
+        case Instrucao::J:
             pc = instrucaoAtual->getImediato();
             atualizarPC = false;
             break;
-        case BNE:
+        case Instrucao::BNE:
             if(registradores->getValor(instrucaoAtual->getOrigem1()) != registradores->getValor(instrucaoAtual->getOrigem2())){
                 pc = instrucaoAtual->getImediato();
                 atualizarPC = false;
             }
             break;
-        case BEQ:
+        case Instrucao::BEQ:
             if(registradores->getValor(instrucaoAtual->getOrigem1()) == registradores->getValor(instrucaoAtual->getOrigem2())){
                 pc = instrucaoAtual->getImediato();
                 atualizarPC = false;
             }
             break;
-        case LW:
-            d = dados->ler(instrucaoAtual->getImediato());
+        case Instrucao::LW:
+            d = memoria->ler(instrucaoAtual->getImediato());
+            
             registradores->setValor(
                 instrucaoAtual->getDestino(),
                 d == NULL ? 0 : d->getValor()
             );
+
             break;
-        case SW:
+        case Instrucao::SW:
             d = new Dado(registradores->getValor(instrucaoAtual->getDestino()));
-            dados->escrever(
+            memoria->escrever(
                 instrucaoAtual->getImediato(),
                 d
             );

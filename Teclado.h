@@ -8,9 +8,9 @@ class Teclado : public Dispositivo {
 
 public:
     Teclado();
-    virtual ~Teclado();
-    virtual Dado* ler() = 0;
-    virtual void escrever(Dado* d) = 0;
+    // virtual ~Teclado();
+    virtual Dado* ler();
+    virtual void escrever(Dado* d);
 };
 
 #endif

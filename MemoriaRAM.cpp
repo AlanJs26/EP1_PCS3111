@@ -1,4 +1,5 @@
 #include "MemoriaRAM.h"
+#include "Instrucao.h"
 
 MemoriaRAM::MemoriaRAM(int tamanho){
     dados = new Dado*[tamanho];
@@ -7,7 +8,7 @@ MemoriaRAM::MemoriaRAM(int tamanho){
         dados[i] = NULL;
     }
     this->tamanho = tamanho;
-};
+}
 
 MemoriaRAM::~MemoriaRAM(){
     for (int i = 0; i < tamanho; i++) {
@@ -19,13 +20,13 @@ MemoriaRAM::~MemoriaRAM(){
 }
 
 void MemoriaRAM::escrever(list <Dado*>* dadosExternos){
-    if(dadosExternos->size() > tamanho){
+    if((int)(dadosExternos->size()) > tamanho){
         // TODO - Arrumar Logic_error
         throw new logic_error("Tamanho Excedido");
     }
 
     auto it = dadosExternos->begin();
-    for(int i = 0; i < dadosExternos->size(); i++){
+    for(int i = 0; i < (int)(dadosExternos->size()); i++){
         advance(it, 1);
 
         dados[i] = *it;
@@ -34,12 +35,15 @@ void MemoriaRAM::escrever(list <Dado*>* dadosExternos){
 }
 
 void MemoriaRAM::imprimir(){
-    for (int i = 0; i < tamanho; i++)
-    {
-        if(dados[i] == NULL){
-            cout << i << ": " << "-" << endl;
-        }else{
+    for (int i = 0; i < tamanho; i++){
+        Instrucao* instrucao = dynamic_cast<Instrucao*>(dados[i]);
+
+        if(instrucao != NULL){
+            cout << i << ": " << "Instrucao " << instrucao->getOpcode() << endl;
+        }else if(dados[i] != NULL){
             cout << i << ": " << dados[i]->getValor() << endl;
+        }else{
+            cout << i << ": " << "-" << endl;
         }
     }
 }

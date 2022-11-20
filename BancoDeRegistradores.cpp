@@ -8,7 +8,7 @@ void BancoDeRegistradores::resetaRegistradores(){
     {
         registradores[i] = 0;
     }
-};
+}
 BancoDeRegistradores::~BancoDeRegistradores(){
     resetaRegistradores();
 }
@@ -18,18 +18,18 @@ BancoDeRegistradores::BancoDeRegistradores(){
 }
 
 int BancoDeRegistradores::getValor(int registrador){
-    if(registrador >= QUANTIDADE_REGISTRADORES || registrador <= 0){
+    if(registrador >= QUANTIDADE_REGISTRADORES || registrador < 0){
         // mudar a mensagem de erro
-        throw new logic_error("Mensagem de erro");
+        throw new logic_error("BancoDeRegistradores::getValor  :  Registrador não encontrado");
     }
 
     return registradores[registrador];
 }
 
 void BancoDeRegistradores::setValor(int registrador, int valor){
-    if(registrador >= QUANTIDADE_REGISTRADORES || registrador <= 0){
+    if(registrador >= QUANTIDADE_REGISTRADORES || registrador < 0){
         // mudar a mensagem de erro
-        throw new logic_error("Mensagem de erro");
+        throw new logic_error("BancoDeRegistradores::setValor  :  Registrador não encontrado");
     }
 
     registradores[registrador] = valor;

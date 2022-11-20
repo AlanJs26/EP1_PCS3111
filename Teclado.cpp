@@ -1,5 +1,9 @@
 #include "Teclado.h"
 
+Teclado::Teclado(){
+
+}
+
 void Teclado::escrever(Dado* d){
     throw new logic_error("Teclado não é um dispositivo de saida");
 }
