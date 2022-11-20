@@ -6,6 +6,8 @@
 
 ESMapeadaNaMemoria::ESMapeadaNaMemoria(MemoriaRAM* m){
     memoriaRam = m;
+
+    this->dispositivos = new vector<Dispositivo*>();
 }
 
 ESMapeadaNaMemoria::ESMapeadaNaMemoria(MemoriaRAM* m, vector<Dispositivo*>* dispositivos){
@@ -38,7 +40,7 @@ void ESMapeadaNaMemoria::adicionar(Dispositivo* d){
 }
 
 int ESMapeadaNaMemoria::getTamanho(){
-    return memoriaRam->getTamanho() + dispositivos->size();
+    return memoriaRam->getTamanho() + (int)(dispositivos->size());
 }
 
 Dado* ESMapeadaNaMemoria::ler(int posicao){
@@ -46,6 +48,7 @@ Dado* ESMapeadaNaMemoria::ler(int posicao){
     {
         return memoriaRam->ler(posicao);
     }else if((size_t)(posicao-memoriaRam->getTamanho()) < dispositivos->size()){
+        cout << "dispositivo" << endl;
         return dispositivos->at(posicao-memoriaRam->getTamanho())->ler();
     }
     throw new logic_error("posicao fora de ESMapeadaNaMemoria");
@@ -57,7 +60,7 @@ void ESMapeadaNaMemoria::escrever(int posicao, Dado* d){
     {
         memoriaRam->escrever(posicao, d);
     }else if((size_t)(posicao-memoriaRam->getTamanho()) < dispositivos->size()){
-        return dispositivos->at(posicao-memoriaRam->getTamanho())->escrever(d);
+        dispositivos->at(posicao-memoriaRam->getTamanho())->escrever(d);
     }
 
     throw new logic_error("posicao fora de ESMapeadaNaMemoria");

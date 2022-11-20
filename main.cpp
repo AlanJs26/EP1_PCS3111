@@ -130,8 +130,8 @@ int main()
     BancoDeRegistradores *registradores = new BancoDeRegistradores;
     MemoriaRAM *memoriaRam = new MemoriaRAM(64);
 
-    vector<Dispositivo*> dispositivos;
-    ESMapeadaNaMemoria *esMapeadaNaMemoria = new ESMapeadaNaMemoria(memoriaRam, &dispositivos);
+    // vector<Dispositivo*> dispositivos;
+    ESMapeadaNaMemoria *esMapeadaNaMemoria = new ESMapeadaNaMemoria(memoriaRam);
 
     esMapeadaNaMemoria->adicionar(new Teclado());
     esMapeadaNaMemoria->adicionar(new TecladoDeChar());
