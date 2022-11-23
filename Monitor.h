@@ -8,8 +8,8 @@ using namespace std;
 class Monitor : public Dispositivo {
 
 public:
-    Monitor(){};
-    // virtual ~Monitor();
+    Monitor();
+    virtual ~Monitor();
     virtual Dado* ler();
     virtual void escrever(Dado* d);
 };

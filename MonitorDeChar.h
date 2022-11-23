@@ -7,10 +7,9 @@
 class MonitorDeChar : public Monitor {
 
 public:
-    MonitorDeChar(){};
-    // virtual ~MonitorDeChar();
+    MonitorDeChar();
+    virtual ~MonitorDeChar();
     virtual void escrever(Dado* d);
-
 };
 
 #endif

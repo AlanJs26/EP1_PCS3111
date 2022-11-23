@@ -48,6 +48,7 @@ Dado* ESMapeadaNaMemoria::ler(int posicao){
     }else if((size_t)(posicao-memoriaRam->getTamanho()) < dispositivos->size()){
         return dispositivos->at(posicao-memoriaRam->getTamanho())->ler();
     }
+
     throw new logic_error("posicao fora de ESMapeadaNaMemoria");
 }
 
@@ -57,10 +58,10 @@ void ESMapeadaNaMemoria::escrever(int posicao, Dado* d){
     {
         memoriaRam->escrever(posicao, d);
     }else if((size_t)(posicao-memoriaRam->getTamanho()) < dispositivos->size()){
-        return dispositivos->at(posicao-memoriaRam->getTamanho())->escrever(d);
+        dispositivos->at(posicao-memoriaRam->getTamanho())->escrever(d);
+    }else{
+        throw new logic_error("posicao fora de ESMapeadaNaMemoria");
     }
-
-    throw new logic_error("posicao fora de ESMapeadaNaMemoria");
 }
 
 void ESMapeadaNaMemoria::imprimir(){

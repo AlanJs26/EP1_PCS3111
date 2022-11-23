@@ -7,8 +7,8 @@
 class TecladoDeChar : public Teclado {
 
 public:
-    TecladoDeChar(){};
-    // virtual ~TecladoDeChar();
+    TecladoDeChar();
+    virtual ~TecladoDeChar();
     virtual Dado* ler();
 };
 

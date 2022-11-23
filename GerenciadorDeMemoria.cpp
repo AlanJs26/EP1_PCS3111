@@ -4,8 +4,10 @@
 #include <string>
 using namespace std;
 
+GerenciadorDeMemoria::GerenciadorDeMemoria(){}
+GerenciadorDeMemoria::~GerenciadorDeMemoria(){}
+
 void GerenciadorDeMemoria::load(string arquivo, MemoriaRAM* m){
-    
     string linha;
 
     ifstream file;
@@ -91,12 +93,6 @@ void GerenciadorDeMemoria::load(string arquivo, MemoriaRAM* m){
         memoriaAtual++;
     }
 
-    // if (!file.eof()) {
-    //     cout << "Erro de leitura" << endl;
-    //     file.close();
-    //     return;
-    // }
-
     if (memoriaAtual == 0) {
         cout << "Arquivo Vazio" << endl;
         file.close();
@@ -107,7 +103,6 @@ void GerenciadorDeMemoria::load(string arquivo, MemoriaRAM* m){
 }
 
 void GerenciadorDeMemoria::dump(string arquivo, MemoriaRAM* m){
-
     ofstream file;
     file.open(arquivo.c_str(), ios_base::app | ios_base::out);
 

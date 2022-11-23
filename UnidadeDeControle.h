@@ -5,7 +5,6 @@
 #include "Memoria.h"
 #include "Instrucao.h"
 
-
 class UnidadeDeControle {
 private:
     BancoDeRegistradores* registradores;
@@ -13,10 +12,6 @@ private:
     int pc;
 
 public:
-    // UnidadeDeControle(BancoDeRegistradores* registradores, MemoriaDeInstrucoes* instrucoes, MemoriaDeDados* dados);
-    // MemoriaDeInstrucoes* getMemoriaDeInstrucoes();
-
-
     UnidadeDeControle(BancoDeRegistradores* registradores, Memoria* memoria);
     virtual ~UnidadeDeControle();
     virtual BancoDeRegistradores* getBancoDeRegistradores();
@@ -24,9 +19,6 @@ public:
     virtual int getPC();
     virtual void setPC(int pc);
     virtual void executarInstrucao(); 
-
-
-
 };
 
 #endif
