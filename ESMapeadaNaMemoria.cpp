@@ -48,6 +48,7 @@ Dado* ESMapeadaNaMemoria::ler(int posicao){
     }else if((size_t)(posicao-memoriaRam->getTamanho()) < dispositivos->size()){
         return dispositivos->at(posicao-memoriaRam->getTamanho())->ler();
     }
+
     throw new logic_error("posicao fora de ESMapeadaNaMemoria");
 }
 

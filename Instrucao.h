@@ -41,8 +41,6 @@ public:
     virtual int getFuncao();
 
     void imprimir(); 
-
-
 };
 
 #endif 

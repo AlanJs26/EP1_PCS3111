@@ -11,7 +11,6 @@ GerenciadorDeMemoria::~GerenciadorDeMemoria(){
 }
 
 void GerenciadorDeMemoria::load(string arquivo, MemoriaRAM* m){
-    
     string linha;
 
     ifstream file;
@@ -106,7 +105,6 @@ void GerenciadorDeMemoria::load(string arquivo, MemoriaRAM* m){
 }
 
 void GerenciadorDeMemoria::dump(string arquivo, MemoriaRAM* m){
-
     ofstream file;
     file.open(arquivo.c_str(), ios_base::app | ios_base::out);
 

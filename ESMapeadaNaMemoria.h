@@ -8,7 +8,8 @@
 using namespace std;
 
 class ESMapeadaNaMemoria : public Memoria {
-protected:
+
+private:
     MemoriaRAM* memoriaRam;
     vector<Dispositivo*>* dispositivos;
 public:

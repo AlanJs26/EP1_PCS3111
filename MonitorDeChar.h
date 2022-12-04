@@ -9,7 +9,6 @@ public:
     MonitorDeChar();
     virtual ~MonitorDeChar();
     virtual void escrever(Dado* d);
-
 };
 
 #endif

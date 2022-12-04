@@ -5,7 +5,6 @@
 #include "Memoria.h"
 #include "Instrucao.h"
 
-
 class UnidadeDeControle {
 private:
     BancoDeRegistradores* registradores;
