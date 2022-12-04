@@ -1,18 +1,17 @@
 #include "Dado.h"
 #include <iostream>
+using namespace std;
 
 Dado::Dado(int valor){
     this->valor = valor;
 }
 
-Dado::~Dado(){
-    this->valor = 0;
-}
+Dado::~Dado(){}
 
 int Dado::getValor(){
     return this->valor;
 }
 
 void Dado::imprimir(){
-    std::cout << this->valor;
+    cout << this->valor;
 }

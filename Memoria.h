@@ -1,53 +1,23 @@
 #ifndef MEMORIA_h
 #define MEMORIA_h
+
+#include "Dado.h"
 #include <iostream>
 
-template <class T>
+using namespace std;
+
 class Memoria {
 protected:
     int tamanho;
-    T** dados;
+    Dado** dados;
 public:
-    Memoria(int tamanho){
-        dados = (T**)malloc(tamanho * sizeof(T*));
-        for (int i = 0; i < tamanho; i++)
-        {
-            dados[i] = NULL;
-        }
-        
-        this->tamanho = tamanho;
-    };
-    ~Memoria(){
-        for (int i = 0; i < tamanho; i++){
-            if(dados[i] != NULL){
-                delete dados[i];
-            }
-        }
-        free(dados);
-    };
-    int getTamanho(){
-        return this->tamanho;
-    };
-    T* ler(int posicao){
-        if(posicao >= tamanho || posicao < 0){
-            return NULL;
-        }
+    Memoria();
+    virtual ~Memoria();
 
-        return dados[posicao];
-    };
-    bool escrever(int posicao, T* d){
-        if(posicao >= tamanho || posicao < 0){
-            return false;
-        }
-        if(dados[posicao] != NULL){
-            delete dados[posicao];
-        }
-
-        dados[posicao] = d;
-
-        return true;
-
-    };
+    virtual int getTamanho() = 0;
+    virtual Dado* ler(int posicao) = 0;
+    virtual void escrever(int posicao, Dado* d) = 0;
+    virtual void imprimir() = 0;
 };
 
 #endif
