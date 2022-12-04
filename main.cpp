@@ -10,7 +10,6 @@
 #include <iostream>
 using namespace std;
 
-
 int telaRegistradores(){
     int escolha = 0;
     cout << "Registradores" << endl;
@@ -38,7 +37,7 @@ void alterarRegistrador(BancoDeRegistradores* registradores){
     registradores->setValor(antigoRegistrador, novoValor);
 }
 
-void Load(MemoriaRAM* memoriaRam) {
+void Load(MemoriaRAM* memoriaRam){
     GerenciadorDeMemoria* gerenciador = new GerenciadorDeMemoria();
 
     cout << "Arquivo origem: ";
@@ -57,7 +56,7 @@ void Load(MemoriaRAM* memoriaRam) {
     }
 }
 
-void Dump(MemoriaRAM* memoriaRam) {
+void Dump(MemoriaRAM* memoriaRam){
     GerenciadorDeMemoria* gerenciador = new GerenciadorDeMemoria();
 
     cout << "Arquivo destino: ";
@@ -75,7 +74,6 @@ void Dump(MemoriaRAM* memoriaRam) {
         delete e;
     }
 }
-
 
 int telaMemoria(){
     int escolha = 0;
@@ -123,14 +121,11 @@ int telaEmuladorMips(){
     return escolha;
 }
 
-
-
 int main()
 {
     BancoDeRegistradores *registradores = new BancoDeRegistradores;
     MemoriaRAM *memoriaRam = new MemoriaRAM(64);
 
-    // vector<Dispositivo*> dispositivos;
     ESMapeadaNaMemoria *esMapeadaNaMemoria = new ESMapeadaNaMemoria(memoriaRam);
 
     esMapeadaNaMemoria->adicionar(new Teclado());
@@ -140,91 +135,64 @@ int main()
 
     UnidadeDeControle *unidadeControle = new UnidadeDeControle(registradores, esMapeadaNaMemoria);
 
-
     int telaAtual = 0;
     int escolha;
-    while (true)
-    {
-        if (telaAtual == 0)
-        {
+    while (true){
+        if (telaAtual == 0){
             escolha = telaEmuladorMips();
 
-            if (escolha == 0)
-            {
+            if (escolha == 0){
                 break;
             }
-            if (escolha == 3)
-            {
+            
+            if (escolha == 3){
                 cout << "PC: " << unidadeControle->getPC() << endl;
                 unidadeControle->executarInstrucao();
                 cout << "Instrucao executada" << endl;
                 cout << "PC: " << unidadeControle->getPC() << endl
                      << endl;
                 continue;
-            }
-            else if (escolha == 4)
-            {
-                try
-                {
-                    
+            } else if (escolha == 4){
+                try{ 
                     do{
                         unidadeControle->executarInstrucao();
-                    }while (unidadeControle->getPC() != 0);
+                    } while (unidadeControle->getPC() != 0);
+
                     cout << endl;
-                }
-                catch (exception *e)
-                {
+                } catch (exception *e){
                     cout << "Erro: " << e->what() << endl;
                     delete e;
                 }
                 continue;
-            }
-            else if (escolha == 5)
-            {
+            } else if (escolha == 5){
                 Load(memoriaRam);
                 continue;
-            }
-            else if (escolha == 6)
-            {
+            } else if (escolha == 6){
                 Dump(memoriaRam);
                 continue;
             }
 
             telaAtual = escolha;
-        }
-        else if (telaAtual == 1)
-        {
+        } else if (telaAtual == 1){
             escolha = telaMemoria();
 
-            if (escolha == 1)
-            {
+            if (escolha == 1){
                 alterarMemoria(esMapeadaNaMemoria);
-            }
-            else if (escolha == 2)
-            {
+            } else if (escolha == 2){
                 esMapeadaNaMemoria->imprimir();
                 cout << endl;
-            }
-            else
-            {
+            } else{
                 telaAtual = 0;
             }
-        }
-        else if (telaAtual == 2)
-        {
+        } else if (telaAtual == 2){
             escolha = telaRegistradores();
 
-            if (escolha == 1)
-            {
+            if (escolha == 1){
                 alterarRegistrador(registradores);
-            }
-            else if (escolha == 2)
-            {
+            } else if (escolha == 2){
                 unidadeControle->getBancoDeRegistradores()->imprimir();
                 cout << endl;
-            }
-            else
-            {
+            } else{
                 telaAtual = 0;
             }
         }

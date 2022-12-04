@@ -5,10 +5,9 @@
 
 
 class Teclado : public Dispositivo {
-
 public:
     Teclado();
-    // virtual ~Teclado();
+    virtual ~Teclado();
     virtual Dado* ler();
     virtual void escrever(Dado* d);
 };

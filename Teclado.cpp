@@ -1,7 +1,9 @@
 #include "Teclado.h"
 
 Teclado::Teclado(){
+}
 
+Teclado::~Teclado(){
 }
 
 void Teclado::escrever(Dado* d){

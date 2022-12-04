@@ -4,8 +4,7 @@
 using namespace std;
 
 void BancoDeRegistradores::resetaRegistradores(){
-    for (int i = 0; i < QUANTIDADE_REGISTRADORES; i++)
-    {
+    for (int i = 0; i < QUANTIDADE_REGISTRADORES; i++){
         registradores[i] = 0;
     }
 }
@@ -19,7 +18,6 @@ BancoDeRegistradores::BancoDeRegistradores(){
 
 int BancoDeRegistradores::getValor(int registrador){
     if(registrador >= QUANTIDADE_REGISTRADORES || registrador < 0){
-        // mudar a mensagem de erro
         throw new logic_error("BancoDeRegistradores::getValor  :  Registrador não encontrado");
     }
 
@@ -28,7 +26,6 @@ int BancoDeRegistradores::getValor(int registrador){
 
 void BancoDeRegistradores::setValor(int registrador, int valor){
     if(registrador >= QUANTIDADE_REGISTRADORES || registrador < 0){
-        // mudar a mensagem de erro
         throw new logic_error("BancoDeRegistradores::setValor  :  Registrador não encontrado");
     }
 

@@ -1,8 +1,7 @@
 #ifndef DADO_h
 #define DADO_h
 
-class Dado
-{
+class Dado {
 private:
     int valor;
 public:
@@ -10,8 +9,6 @@ public:
     virtual ~Dado();
     virtual int getValor();
     virtual void imprimir();
-
 };
-
 
 #endif 

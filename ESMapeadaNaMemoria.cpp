@@ -18,8 +18,7 @@ ESMapeadaNaMemoria::ESMapeadaNaMemoria(MemoriaRAM* m, vector<Dispositivo*>* disp
 
 ESMapeadaNaMemoria::~ESMapeadaNaMemoria(){
     delete memoriaRam;
-    for (int i = 0; i < (int)(dispositivos->size()); i++)
-    {
+    for (int i = 0; i < (int)(dispositivos->size()); i++){
         delete (*dispositivos)[i];
     }
     dispositivos->clear();
@@ -44,11 +43,9 @@ int ESMapeadaNaMemoria::getTamanho(){
 }
 
 Dado* ESMapeadaNaMemoria::ler(int posicao){
-    if (posicao < memoriaRam->getTamanho())
-    {
+    if (posicao < memoriaRam->getTamanho()){
         return memoriaRam->ler(posicao);
     }else if((size_t)(posicao-memoriaRam->getTamanho()) < dispositivos->size()){
-        cout << "dispositivo" << endl;
         return dispositivos->at(posicao-memoriaRam->getTamanho())->ler();
     }
     throw new logic_error("posicao fora de ESMapeadaNaMemoria");
@@ -56,35 +53,15 @@ Dado* ESMapeadaNaMemoria::ler(int posicao){
 
 
 void ESMapeadaNaMemoria::escrever(int posicao, Dado* d){
-    if (posicao < memoriaRam->getTamanho())
-    {
+    if (posicao < memoriaRam->getTamanho()){
         memoriaRam->escrever(posicao, d);
     }else if((size_t)(posicao-memoriaRam->getTamanho()) < dispositivos->size()){
         dispositivos->at(posicao-memoriaRam->getTamanho())->escrever(d);
+    }else{
+        throw new logic_error("posicao fora de ESMapeadaNaMemoria");
     }
-
-    throw new logic_error("posicao fora de ESMapeadaNaMemoria");
 }
 
 void ESMapeadaNaMemoria::imprimir(){
     memoriaRam->imprimir();
-
-    // for(Dispositivo* d : *dispositivos){
-    //     Monitor* monitor = dynamic_cast<Monitor*>(d);
-    //     MonitorDeChar* monitordechar = dynamic_cast<MonitorDeChar*>(d);
-    //     Teclado* teclado = dynamic_cast<Teclado*>(d);
-    //     TecladoDeChar* tecladodechar = dynamic_cast<TecladoDeChar*>(d);
-
-    //     if(monitor != NULL){
-    //         cout << "Dispositivo " << "Monitor" << endl;
-    //     }else if(monitordechar != NULL){
-    //         cout << "Dispositivo " << "MonitorDeChar" << endl;
-    //     }else if(teclado != NULL){
-    //         cout << "Dispositivo " << "Teclado" << endl;
-    //     }else if(tecladodechar != NULL){
-    //         cout << "Dispositivo " << "TecladodeChar" << endl;
-    //     }else{
-    //         cout << "Dispositivo Desconhecido" << endl;
-    //     }
-    // }
 }

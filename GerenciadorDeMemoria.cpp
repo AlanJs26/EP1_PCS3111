@@ -4,6 +4,12 @@
 #include <string>
 using namespace std;
 
+GerenciadorDeMemoria::GerenciadorDeMemoria(){
+}
+
+GerenciadorDeMemoria::~GerenciadorDeMemoria(){
+}
+
 void GerenciadorDeMemoria::load(string arquivo, MemoriaRAM* m){
     
     string linha;
@@ -32,7 +38,6 @@ void GerenciadorDeMemoria::load(string arquivo, MemoriaRAM* m){
     int memoriaAtual = 0;
 
     while (file && memoriaAtual < tamanhoExterno){
-
         file >> tipo;
 
         if(tipo == "D"){
@@ -91,16 +96,10 @@ void GerenciadorDeMemoria::load(string arquivo, MemoriaRAM* m){
         memoriaAtual++;
     }
 
-    // if (!file.eof()) {
-    //     cout << "Erro de leitura" << endl;
-    //     file.close();
-    //     return;
-    // }
 
     if (memoriaAtual == 0) {
-        cout << "Arquivo Vazio" << endl;
         file.close();
-        return;
+        throw new runtime_error("Arquivo Vazio");
     }
 
     file.close();
@@ -169,7 +168,6 @@ void GerenciadorDeMemoria::dump(string arquivo, MemoriaRAM* m){
             file << "-" << endl;
         }
     }
-    
     
     file.close();
 } 

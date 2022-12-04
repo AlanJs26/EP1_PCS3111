@@ -1,17 +1,18 @@
 #include "MemoriaRAM.h"
 #include "Instrucao.h"
+#include <stdexcept>
 
 MemoriaRAM::MemoriaRAM(int tamanho){
     dados = new Dado*[tamanho];
 
-    for (int i = 0; i < tamanho; i++) {
+    for (int i = 0; i < tamanho; i++){
         dados[i] = NULL;
     }
     this->tamanho = tamanho;
 }
 
 MemoriaRAM::~MemoriaRAM(){
-    for (int i = 0; i < tamanho; i++) {
+    for (int i = 0; i < tamanho; i++){
         if (dados[i] != NULL) {
             delete dados[i];
         }
@@ -21,7 +22,6 @@ MemoriaRAM::~MemoriaRAM(){
 
 void MemoriaRAM::escrever(list <Dado*>* dadosExternos){
     if((int)(dadosExternos->size()) > tamanho){
-        // TODO - Arrumar Logic_error
         throw new logic_error("Tamanho Excedido");
     }
 
@@ -31,7 +31,6 @@ void MemoriaRAM::escrever(list <Dado*>* dadosExternos){
 
         dados[i] = *it;
     }
-
 }
 
 void MemoriaRAM::imprimir(){
@@ -48,21 +47,25 @@ void MemoriaRAM::imprimir(){
     }
 }
 
+int MemoriaRAM::getTamanho(){
+    return tamanho;
+}
+
 void MemoriaRAM::escrever(int posicao, Dado* d){
-    if (posicao < 0 || posicao >= tamanho) {
+    if (posicao < 0 || posicao >= tamanho){
         throw new logic_error("Posicao invalida de memoria");
     }
 
     if (dados[posicao] != NULL){
         delete dados[posicao];
     }
-
+    
     dados[posicao] = d;
 }
 
 
 Dado* MemoriaRAM::ler(int posicao){
-    if (posicao < 0 || posicao >= tamanho) {
+    if (posicao < 0 || posicao >= tamanho){
         throw new logic_error("Posicao invalida");
     }
     

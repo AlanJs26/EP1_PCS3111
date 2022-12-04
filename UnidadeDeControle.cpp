@@ -113,5 +113,4 @@ void UnidadeDeControle::executarInstrucao(){
             pc++;
         }
     }
-    
 }

@@ -8,11 +8,9 @@
 using namespace std;
 
 class ESMapeadaNaMemoria : public Memoria {
-
 protected:
     MemoriaRAM* memoriaRam;
     vector<Dispositivo*>* dispositivos;
-
 public:
     ESMapeadaNaMemoria(MemoriaRAM* m);
     ESMapeadaNaMemoria(MemoriaRAM* m, vector<Dispositivo*>* dispositivos);
